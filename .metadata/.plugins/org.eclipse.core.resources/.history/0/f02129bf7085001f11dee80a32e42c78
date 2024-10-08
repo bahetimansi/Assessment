@@ -1,0 +1,5 @@
+package com.assessment.service;
+
+public class LoanService {
+
+}

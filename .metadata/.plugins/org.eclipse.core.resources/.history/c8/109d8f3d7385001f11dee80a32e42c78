@@ -1,0 +1,41 @@
+package com.assessment.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.assessment.integration.ApiService;
+import com.assessment.integration.LoanEmiResponse;
+import com.assessment.model.EmiDetails;
+import com.assessment.model.LoanDetails;
+import com.assessment.model.LoanEmiRepository;
+import com.assessment.model.LoanResponse;
+import com.assessment.repository.EmiDetailsRepository;
+import com.assessment.repository.LoanDetailsRepository;
+
+public class LoanService {
+
+	@Autowired
+	private ApiService apiService;
+	
+	@Autowired
+	private EmiDetailsRepository emiDetailsRepository;
+	
+	private LoanDetailsRepository loanDetailsRepository;
+	
+	private LoanEmiRepository loanEmiRepository;
+	
+	public LoanResponse getLoanData(String loanAccountNumber) {
+		LoanEmiResponse externalResponse = apiService.getData();
+		List<EmiDetails> emiDetailsList = new ArrayList<>();
+		LoanDetails loanDetails = new LoanDetails();
+		loanDetails.setLoanAccountNumber(externalResponse.getLoanAccountNumber());
+		loanDetails.setEmiDay(15);
+		if(externalResponse.getEmiDetails() != null && !externalResponse.getEmiDetails().isEmpty()) {
+			for(EmiDetails emiDetails : externalResponse.getEmiDetails()) {
+				
+			}
+		}
+	}
+}

@@ -1,0 +1,7 @@
+package com.assessment.model;
+
+import org.springframework.data.repository.CrudRepository;
+
+public interface LoanDetailsRepository extends CrudRepository<LoanDetails, Long>{
+
+}

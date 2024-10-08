@@ -1,0 +1,8 @@
+package com.assessment.model;
+
+public class LoanDetails {
+	
+	private Long id;
+	
+	private Integer emiDay;
+}

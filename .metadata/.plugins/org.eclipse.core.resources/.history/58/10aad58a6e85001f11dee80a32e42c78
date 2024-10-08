@@ -1,0 +1,21 @@
+package com.assessment.integration;
+
+import java.net.http.HttpRequest;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+@Service
+public class IntegrationService {
+	
+	@Value("${external.api}")
+	private String externalApiUrl;
+	
+	private void getData() {
+		HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .header("Accept", "application/json") // Set the accept header
+                .GET() // Specify the request type
+                .build();
+	}
+}

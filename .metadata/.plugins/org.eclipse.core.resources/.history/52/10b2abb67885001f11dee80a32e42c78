@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+	<changeSet id="2" author="mansi">
+		<createSequence sequenceName="loan_details_id_seq" startValue="1" incrementBy="1" minValue="1" />
+		<createSequence sequenceName="emi_details_id_seq" startValue="1" incrementBy="1" minValue="1" />
+		<createSequence sequenceName="loan_emi_id_seq" startValue="1" incrementBy="1" minValue="1" />
+	</changeSet>
+	
+    <changeSet id="2" author="mansi">
+        <createTable tableName="loan_details">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="loan_account_number" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="emi_day" type="integer"/>
+        </createTable>
+
+        <createTable tableName="emi_details">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="month" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="emi_amount" type="double">
+                <constraints nullable="false"/>
+            </column>
+            <column name="paid_status" type="boolean"/>
+            <column name="due_status" type="boolean"/>
+        </createTable>
+
+        <createTable tableName="loan_emi">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="loan_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="emi_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="loan_emi"
+                baseColumnNames="loan_id"
+                referencedTableName="loan_details"
+                referencedColumnNames="id"
+                constraintName="fk_loan_emi_loan_id"/>
+
+        <addForeignKeyConstraint
+                baseTableName="loan_emi"
+                baseColumnNames="emi_id"
+                referencedTableName="emi_details"
+                referencedColumnNames="id"
+                constraintName="fk_loan_emi_emi_id"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,65 @@
+package com.assessment.integration;
+
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.net.http.HttpTimeoutException;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+@Service
+public class ApiService {
+	
+	@Value("${external.api.url}")
+	private String externalApiUrl;
+	
+	private final HttpClient httpClient;
+	
+	public ApiService() {
+        this.httpClient = HttpClient.newHttpClient(); // Create a new HttpClient
+    }
+	
+	public LoanEmiResponse getData() {
+		HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(externalApiUrl))
+                .header("Accept", "application/json") // Set the accept header
+                .GET() // Specify the request type
+                .build();
+		
+		  try {
+	            // Send the request and get the response
+	            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+	            // Check the response status code
+	            if (response.statusCode() == 200) {
+	                // Parse and return the LoanAccountResponse
+	                return parseLoanAccountResponse(response.body());
+	            } else {
+	                System.err.println("Request failed with status code: " + response.statusCode());
+	                return null; // Handle error accordingly
+	            }
+	        } catch (HttpTimeoutException e) {
+	            System.err.println("Request timed out: " + e.getMessage());
+	            return null; // Handle timeout accordingly
+	        } catch (Exception e) {
+	            System.err.println("An error occurred: " + e.getMessage());
+	            return null; // Handle exceptions accordingly
+	        }
+	    }
+	
+		private LoanEmiResponse parseLoanAccountResponse(String responseBody) {
+	        // Use a JSON library like Jackson or Gson to convert the JSON string to an object
+	        // Assuming you are using Jackson:
+	        try {
+	            ObjectMapper objectMapper = new ObjectMapper();
+	            return objectMapper.readValue(responseBody, LoanEmiResponse.class);
+	        } catch (Exception e) {
+	            System.err.println("Failed to parse response: " + e.getMessage());
+	            return null; // Handle parsing errors
+	        }
+	    }
+}

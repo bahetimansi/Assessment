@@ -1,0 +1,5 @@
+package com.assessment.controller;
+
+public class LoanController {
+
+}

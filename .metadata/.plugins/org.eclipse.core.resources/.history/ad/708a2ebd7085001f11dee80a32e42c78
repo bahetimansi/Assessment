@@ -1,0 +1,11 @@
+package com.assessment.model;
+
+import java.time.LocalDate;
+
+public class Response {
+	private String loanAccountNumber;
+	
+	private LocalDate dueDate;
+	
+	private Double emiAmount;
+}

@@ -1,0 +1,13 @@
+package com.assessment.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.assessment.integration.ApiService;
+
+public class LoanService {
+
+	@Autowired
+	private ApiService apiService;
+	
+	public 
+}

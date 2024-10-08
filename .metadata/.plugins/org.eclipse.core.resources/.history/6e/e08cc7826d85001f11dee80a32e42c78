@@ -1,0 +1,14 @@
+package com.assessment.model;
+
+import jakarta.persistence.Column;
+
+public class LoanEmi {
+	@Column(name = "id")
+	private Long id;
+	
+	@Column(name = "loan_id")
+	private Long loanId;
+	
+	@Column(name = "emi_id")
+	private Long emiId;
+}

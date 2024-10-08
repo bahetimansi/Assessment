@@ -1,0 +1,7 @@
+spring.application.name=demo
+spring.datasource.url=jdbc:postgresql://localhost:5432/assessment
+spring.datasource.username=postgres
+spring.datasource.password=Root@prp
+external.api.url=https://demo9993930.mockable.io/loanaccount/1
+spring.liquibase.change-log=classpath:db/changelog/db.changelog-1.0.xml
+logging.level.org.springframework.web=DEBUG

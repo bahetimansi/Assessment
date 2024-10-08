@@ -1,0 +1,11 @@
+package com.assessment.integration;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+@Service
+public class IntegrationService {
+	
+	@Value("${external.api}")
+	private String externalApi;
+}
